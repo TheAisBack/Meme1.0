@@ -19,11 +19,11 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" userLabel="view">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pka-9Z-Jdd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pka-9Z-Jdd" userLabel="Image">
                                 <rect key="frame" x="16" y="79" width="343" height="527"/>
                             </imageView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Up1-fk-it9">
@@ -101,7 +101,9 @@
                     <connections>
                         <outlet property="bottom" destination="nEN-2Q-RdN" id="b33-ZZ-ydw"/>
                         <outlet property="cameraButton" destination="rgV-Mv-0RX" id="j5X-Xt-r6i"/>
-                        <outlet property="imagePickerView" destination="8bC-Xf-vdC" id="Ggd-pz-ksn"/>
+                        <outlet property="cancelButton" destination="fSJ-Kt-awE" id="xc2-1j-b1y"/>
+                        <outlet property="imagePickerView" destination="pka-9Z-Jdd" id="Pvk-He-a5a"/>
+                        <outlet property="shareButton" destination="rcG-MH-p8k" id="d03-Cg-X5R"/>
                         <outlet property="top" destination="FL4-WZ-LVi" id="42x-hf-FJ4"/>
                     </connections>
                 </viewController>

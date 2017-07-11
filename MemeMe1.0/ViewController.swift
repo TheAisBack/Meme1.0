@@ -2,17 +2,20 @@
 //  ViewController.swift
 //  MemeMe1.0
 //
-//  Created by Alan Joseph Hekle on 2017-07-09.
+//  Created by Alan Joseph Hekle on 2017-07-11.
 //  Copyright © 2017 Alan Joseph Hekle. All rights reserved.
 //
+
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet var imagePickerView: UIView!
+    @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var top: UITextField!
     @IBOutlet weak var bottom: UITextField!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,13 +67,25 @@ class ViewController: UIViewController {
         bottom.text = ""
     }
     @IBAction func pickAnImage(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        self.present(imagePicker, animated: true, completion: nil)
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        present(pickerController, animated: true, completion: nil)
     }
     @IBAction func pickAnImageFromCamera(sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
-        self.present(imagePicker, animated: true, completion: nil)
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+    //func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imagePickerView.image = image
+            self.dismiss(animated: true, completion: nil)
+            shareButton.isEnabled = true
+            cancelButton.isEnabled = true
+        }
     }
     let memeTextAttributes:[String:Any] = [
         NSStrokeColorAttributeName: UIColor.black,
