@@ -18,14 +18,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var Album: UIBarButtonItem!
-    
+    @IBOutlet weak var toolBar: UIToolbar!
+    @IBOutlet weak var navBar: UINavigationBar!
     // Text Attributes
     let memeTextAttributes:[String:Any] = [
         NSStrokeColorAttributeName: UIColor.black,
         NSForegroundColorAttributeName: UIColor.white,
         NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName: 3.0,]
-
+        NSStrokeWidthAttributeName: -2.00]
     // viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +33,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottom.defaultTextAttributes = memeTextAttributes
         top.textAlignment = .center
         bottom.textAlignment = .center
-        top.resignFirstResponder()
-        bottom.resignFirstResponder()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,18 +60,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
     }
     func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
     
     // Text Field Functions
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
-        textField.resignFirstResponder()
+        self.resignFirstResponder()
         return true
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -102,7 +98,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             cancelButton.isEnabled = true
         }
     }
-    
+
     // Meme Object
     struct Meme {
         var topText: String
@@ -112,12 +108,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     func generateMemedImage() -> UIImage {
         // TODO: Hide toolbar and navbar
+        self.toolBar.isHidden = true
+        self.navBar.isHidden = true
+        
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+        
         // TODO: Show toolbar and navbar
+        self.toolBar.isHidden = false
+        self.navBar.isHidden = false
+        
         return memedImage
     }
     func save() {

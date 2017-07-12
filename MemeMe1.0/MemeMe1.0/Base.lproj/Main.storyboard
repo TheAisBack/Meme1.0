@@ -84,8 +84,12 @@
                             <constraint firstItem="FL4-WZ-LVi" firstAttribute="top" secondItem="Up1-fk-it9" secondAttribute="bottom" constant="29" id="0u2-Bs-0jJ"/>
                             <constraint firstItem="pka-9Z-Jdd" firstAttribute="centerX" secondItem="tE1-Sh-ugb" secondAttribute="centerX" id="0v1-H0-BIy"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="tE1-Sh-ugb" secondAttribute="bottom" id="5j9-LN-dFo"/>
+                            <constraint firstItem="tE1-Sh-ugb" firstAttribute="top" secondItem="nEN-2Q-RdN" secondAttribute="bottom" constant="37" id="5nc-iZ-Hsi"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="tE1-Sh-ugb" secondAttribute="bottom" id="H0l-Lh-EkN"/>
                             <constraint firstItem="pka-9Z-Jdd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="HID-Lo-6J7"/>
                             <constraint firstItem="tE1-Sh-ugb" firstAttribute="top" secondItem="pka-9Z-Jdd" secondAttribute="bottom" constant="-44" id="IPI-b7-Z9W"/>
+                            <constraint firstAttribute="trailing" secondItem="tE1-Sh-ugb" secondAttribute="trailing" id="Ifx-QC-vGB"/>
+                            <constraint firstItem="tE1-Sh-ugb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PyS-J8-MEn"/>
                             <constraint firstItem="tE1-Sh-ugb" firstAttribute="top" secondItem="nEN-2Q-RdN" secondAttribute="bottom" constant="37" id="Qcq-Ep-BHy"/>
                             <constraint firstAttribute="trailing" secondItem="tE1-Sh-ugb" secondAttribute="trailing" id="T7E-ld-q7D"/>
                             <constraint firstAttribute="trailing" secondItem="tE1-Sh-ugb" secondAttribute="trailing" id="X8S-oE-2co"/>
@@ -108,7 +112,9 @@
                         <outlet property="cameraButton" destination="rgV-Mv-0RX" id="j5X-Xt-r6i"/>
                         <outlet property="cancelButton" destination="fSJ-Kt-awE" id="xc2-1j-b1y"/>
                         <outlet property="imagePickerView" destination="pka-9Z-Jdd" id="Pvk-He-a5a"/>
+                        <outlet property="navBar" destination="Up1-fk-it9" id="LlN-Jv-ER6"/>
                         <outlet property="shareButton" destination="rcG-MH-p8k" id="d03-Cg-X5R"/>
+                        <outlet property="toolBar" destination="tE1-Sh-ugb" id="l5f-zB-CMM"/>
                         <outlet property="top" destination="FL4-WZ-LVi" id="42x-hf-FJ4"/>
                     </connections>
                 </viewController>
