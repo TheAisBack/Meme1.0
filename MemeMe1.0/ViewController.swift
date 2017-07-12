@@ -20,19 +20,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var Album: UIBarButtonItem!
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var navBar: UINavigationBar!
+    
     // Text Attributes
     let memeTextAttributes:[String:Any] = [
         NSStrokeColorAttributeName: UIColor.black,
         NSForegroundColorAttributeName: UIColor.white,
         NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName: -2.00]
+    
     // viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        top.defaultTextAttributes = memeTextAttributes
-        bottom.defaultTextAttributes = memeTextAttributes
-        top.textAlignment = .center
-        bottom.textAlignment = .center
+        configure(textField: top, text: "TOP")
+        configure(textField: bottom, text: "BOTTOM")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -43,7 +43,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
-
     // Keyboard functions
     func keyboardWillShow(_ notification: Notification) {
         if bottom.isFirstResponder {
@@ -77,28 +76,52 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             textField.text = ""
         }
     }
-    
+    func configure(textField: UITextField, text: String) {
+        textField.delegate = self as? UITextFieldDelegate
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.text = text
+        textField.textAlignment = .center
+    }
     // Picking images from Album and Camera
+
+    /*func chooseSourceType(sourceType: UIImagePickerControllerSourceType) {
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        if (sourceType == .camera) {
+            present(pickerController, animated: true, completion: nil)
+        } else if (sourceType = .photoLibrary) {
+            present(pickerController, animated: true, completion: nil)
+        }
+    }*/
     @IBAction func pickAnImage(_ sender: Any) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         present(pickerController, animated: true, completion: nil)
     }
-    @IBAction func pickAnImageFromCamera(sender: Any) {
+    @IBAction func pickAnImageFromCamera(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
+    }
+    @IBAction func cancel(_ sender: Any) {
+        top.text = "TOP"
+        bottom.text = "BOTTOM"
+        imagePickerView.image = nil
+    }
+    @IBAction func share(_ sender: Any) {
+        let image = generateMemedImage()
+        let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        self.present(controller, animated: true, completion: nil)
+        self.save()
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
             self.dismiss(animated: true, completion: nil)
             shareButton.isEnabled = true
-            cancelButton.isEnabled = true
         }
     }
-
     // Meme Object
     struct Meme {
         var topText: String
