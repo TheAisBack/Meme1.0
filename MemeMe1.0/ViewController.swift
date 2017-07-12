@@ -113,7 +113,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let image = generateMemedImage()
         let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         self.present(controller, animated: true, completion: nil)
-        self.save()
+        /*self.save()*/
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
