@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeMe1.0
 //
 //  Created by Alan Joseph Hekle on 2017-07-11.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     //@IBOutlet
     @IBOutlet weak var imagePickerView: UIImageView!
@@ -26,7 +26,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSStrokeColorAttributeName: UIColor.black,
         NSForegroundColorAttributeName: UIColor.white,
         NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName: -2.00]
+        NSStrokeWidthAttributeName: -3.50]
     
     // viewDidLoad
     override func viewDidLoad() {
@@ -46,7 +46,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Keyboard functions
     func keyboardWillShow(_ notification: Notification) {
         if bottom.isFirstResponder {
-            self.view.frame.origin.y = 0 - getKeyboardHeight(notification)
+            self.view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     func keyboardWillHide(_ notification: Notification) {
@@ -95,6 +95,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func pickAnImage(_ sender: Any) {
         chooseSourceType(sourceType: .photoLibrary)
     }
+    
     // Cancel and Share
     @IBAction func cancel(_ sender: Any) {
         top.text = "TOP"
@@ -129,19 +130,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var originalImage: UIImage
         var memedImage: UIImage
     }
-    func hideBar(_ animated: Bool) {
+    func hideBar() {
         self.toolBar.isHidden = true
         self.navBar.isHidden = true
     }
-    func showBar(_ animated: Bool) {
+    func showBar() {
         self.toolBar.isHidden = false
         self.navBar.isHidden = false
     }
     func generateMemedImage() -> UIImage {
         
         // TODO: Hide toolbar and navbar
-        self.hideBar((navBar != nil))
-        self.hideBar((toolBar != nil))
+        hideBar()
 
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -150,8 +150,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // TODO: Show toolbar and navbar
-        self.hideBar((navBar != nil))
-        self.hideBar((toolBar != nil))
+        showBar()
         
         return memedImage
     }
