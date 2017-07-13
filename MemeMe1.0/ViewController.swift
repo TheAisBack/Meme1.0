@@ -129,21 +129,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var originalImage: UIImage
         var memedImage: UIImage
     }
-    func showBar() -> Bool {
-        self.toolBar.isHidden = false
-        self.navBar.isHidden = false
-        return false
-    }
-    func hideBar() -> Bool {
+    func hideBar(_ animated: Bool) {
         self.toolBar.isHidden = true
         self.navBar.isHidden = true
-        return true
+    }
+    func showBar(_ animated: Bool) {
+        self.toolBar.isHidden = false
+        self.navBar.isHidden = false
     }
     func generateMemedImage() -> UIImage {
         
         // TODO: Hide toolbar and navbar
-        self.hideBar()
-        
+        self.hideBar((navBar != nil))
+        self.hideBar((toolBar != nil))
+
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
@@ -151,8 +150,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // TODO: Show toolbar and navbar
-        self.showBar()
-
+        self.hideBar((navBar != nil))
+        self.hideBar((toolBar != nil))
+        
         return memedImage
     }
     func save() {
