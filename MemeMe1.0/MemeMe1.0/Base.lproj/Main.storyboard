@@ -14,7 +14,6 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe1_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -30,7 +29,7 @@
                                     <navigationItem title="MemeMe 1.0" id="I5l-tX-DZB">
                                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="rcG-MH-p8k">
                                             <connections>
-                                                <action selector="share:" destination="BYZ-38-t0r" id="W9B-ej-YH7"/>
+                                                <action selector="shareWithSender:" destination="BYZ-38-t0r" id="4Ny-ag-8pe"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="fSJ-Kt-awE">
@@ -47,13 +46,13 @@
                                     <barButtonItem systemItem="flexibleSpace" id="X7L-PG-JhM"/>
                                     <barButtonItem systemItem="camera" id="rgV-Mv-0RX">
                                         <connections>
-                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="wS0-Iy-v2Z"/>
+                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="Ltf-Qx-hHi"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem systemItem="flexibleSpace" id="10h-rT-TzX"/>
                                     <barButtonItem title="Album" id="ty2-6i-55q">
                                         <connections>
-                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="k21-3E-14K"/>
+                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="cNZ-3O-PiK"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem systemItem="flexibleSpace" id="qU2-ft-Ux9"/>
@@ -119,6 +118,7 @@
                         <outlet property="top" destination="FL4-WZ-LVi" id="42x-hf-FJ4"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.14130434782609" y="137.68115942028987"/>
         </scene>

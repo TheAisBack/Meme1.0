@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     //@IBOutlet
     @IBOutlet weak var imagePickerView: UIImageView!
@@ -17,7 +17,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
-    @IBOutlet weak var Album: UIBarButtonItem!
+    @IBOutlet weak var album: UIBarButtonItem!
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var navBar: UINavigationBar!
     
@@ -68,7 +68,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Text Field Functions
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
-        self.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -77,43 +77,42 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     func configure(textField: UITextField, text: String) {
-        textField.delegate = self as? UITextFieldDelegate
+        textField.delegate = self
         textField.defaultTextAttributes = memeTextAttributes
         textField.text = text
         textField.textAlignment = .center
     }
-    // Picking images from Album and Camera
-
-    /*func chooseSourceType(sourceType: UIImagePickerControllerSourceType) {
+    // Picking images from album and camera
+    func chooseSourceType(sourceType: UIImagePickerControllerSourceType) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
-        if (sourceType == .camera) {
-            present(pickerController, animated: true, completion: nil)
-        } else if (sourceType = .photoLibrary) {
-            present(pickerController, animated: true, completion: nil)
-        }
-    }*/
-    @IBAction func pickAnImage(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
+        pickerController.sourceType = sourceType
         present(pickerController, animated: true, completion: nil)
     }
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
+        chooseSourceType(sourceType: .camera)
     }
+    @IBAction func pickAnImage(_ sender: Any) {
+        chooseSourceType(sourceType: .photoLibrary)
+    }
+    // Cancel and Share
     @IBAction func cancel(_ sender: Any) {
         top.text = "TOP"
         bottom.text = "BOTTOM"
         imagePickerView.image = nil
     }
-    @IBAction func share(_ sender: Any) {
+    @IBAction func share(sender: UIBarButtonItem) {
+        
         let image = generateMemedImage()
         let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        
+        controller.completionWithItemsHandler = {
+            activity, completed, items, error in
+            if completed {
+                self.save()
+            }
+        }
         self.present(controller, animated: true, completion: nil)
-        /*self.save()*/
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -122,6 +121,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             shareButton.isEnabled = true
         }
     }
+    
     // Meme Object
     struct Meme {
         var topText: String
