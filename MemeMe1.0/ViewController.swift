@@ -129,10 +129,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var originalImage: UIImage
         var memedImage: UIImage
     }
-    func generateMemedImage() -> UIImage {
-        // TODO: Hide toolbar and navbar
+    func showBar() -> Bool {
+        self.toolBar.isHidden = false
+        self.navBar.isHidden = false
+        return false
+    }
+    func hideBar() -> Bool {
         self.toolBar.isHidden = true
         self.navBar.isHidden = true
+        return true
+    }
+    func generateMemedImage() -> UIImage {
+        
+        // TODO: Hide toolbar and navbar
+        self.hideBar()
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -141,9 +151,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // TODO: Show toolbar and navbar
-        self.toolBar.isHidden = false
-        self.navBar.isHidden = false
-        
+        self.showBar()
+
         return memedImage
     }
     func save() {
