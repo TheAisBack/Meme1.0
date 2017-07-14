@@ -33,6 +33,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         super.viewDidLoad()
         configure(textField: top, text: "TOP")
         configure(textField: bottom, text: "BOTTOM")
+        checkShareButton()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -89,6 +90,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         pickerController.sourceType = sourceType
         present(pickerController, animated: true, completion: nil)
     }
+    func checkShareButton() {
+        shareButton.isEnabled = false
+        if (self.imagePickerView.image != nil) {
+            shareButton.isEnabled = true
+        }
+    }
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
         chooseSourceType(sourceType: .camera)
     }
@@ -106,11 +113,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         let image = generateMemedImage()
         let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        
+        shareButton.isEnabled = (imagePickerView.image != nil)
+
         controller.completionWithItemsHandler = {
             activity, completed, items, error in
             if completed {
                 self.save()
+                self.dismiss(animated: false, completion: nil)
             }
         }
         self.present(controller, animated: true, completion: nil)
@@ -122,7 +131,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             shareButton.isEnabled = true
         }
     }
-    
     // Meme Object
     struct Meme {
         var topText: String
@@ -130,19 +138,16 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         var originalImage: UIImage
         var memedImage: UIImage
     }
-    func hideBar() {
-        self.toolBar.isHidden = true
-        self.navBar.isHidden = true
+    func showBarHideBar(_ animated: Bool) {
+        self.toolBar.isHidden = animated
+        self.navBar.isHidden = animated
     }
-    func showBar() {
-        self.toolBar.isHidden = false
-        self.navBar.isHidden = false
-    }
+    
     func generateMemedImage() -> UIImage {
         
         // TODO: Hide toolbar and navbar
-        hideBar()
-
+        showBarHideBar(true)
+        
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
@@ -150,12 +155,15 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         UIGraphicsEndImageContext()
         
         // TODO: Show toolbar and navbar
-        showBar()
+        showBarHideBar(false)
         
         return memedImage
     }
     func save() {
         // Create the meme
+        _ = generateMemedImage()
+        
         _ = Meme(topText: top.text!, bottomText: bottom.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
+        
     }
 }

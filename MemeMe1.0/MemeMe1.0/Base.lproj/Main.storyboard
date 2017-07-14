@@ -108,6 +108,7 @@
                     </view>
                     <connections>
                         <outlet property="Album" destination="ty2-6i-55q" id="Q3x-20-md4"/>
+                        <outlet property="album" destination="ty2-6i-55q" id="aPM-tt-on1"/>
                         <outlet property="bottom" destination="nEN-2Q-RdN" id="b33-ZZ-ydw"/>
                         <outlet property="cameraButton" destination="rgV-Mv-0RX" id="j5X-Xt-r6i"/>
                         <outlet property="cancelButton" destination="fSJ-Kt-awE" id="Nnn-Wz-yin"/>
